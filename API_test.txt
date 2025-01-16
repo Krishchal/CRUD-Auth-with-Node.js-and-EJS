@@ -1,0 +1,50 @@
+## Sign-up API 
+POST :
+http://localhost:8020/api/v1/auth/signup 
+
+body: {
+    "name" : string,
+    "email" : valid_email & unique,
+    "password" : > 4 (min_length)
+}
+
+## Login API
+POST :
+http://localhost:8020/api/v1/auth/login 
+
+body: {
+    "email" : "",
+    "password" : ""
+}
+
+## Reset Password API
+PUT :
+http://localhost:8020/api/v1/auth/resetPassword
+
+body: {
+    "email" : "",
+    "oldPassword" : "",
+    "newPassword" " "",
+}
+
+## Get all registered users 
+GET :
+http://localhost:8020/api/v1/allUsers
+
+
+## Delete specific users
+DELETE :
+http://localhost:8020/api/v1/users/deleteUser
+
+
+
+##-------------------------------------------------------------------------------------
+        <<  Task Assigned >>
+
+1.Create CRUD operation for user registration and also include user login and password reset (user mongodb for database)
+
+2. Create Table using jQuery, HTML, CSS, Bootstrap (jQuery DOM manipulation) to display the registered users
+
+3. Pop up modal when click rows of table with jQuery Events ad Bootstrap
+
+4. Simple Http request from Frontend to backend using Axios.
