@@ -1,0 +1,66 @@
+<%- include('partials/header') %>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="border rounded p-4 shadow-lg bg-white" style="width: 400px;">
+    <h2 class="text-center mb-4">Login</h2>
+
+    <!-- Alert for displaying API messages -->
+    <div id="alert" class="alert d-none" role="alert"></div>
+
+    <form id="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" class="form-control" id="email" required />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" required />
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-3">Don't have an account? <a href="/register">Register here</a></p>
+  </div>
+</div>
+
+
+
+<script>
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const result = await response.json();
+
+      const alertBox = document.getElementById('alert');
+      alertBox.classList.remove('d-none');
+      if (response.ok && result.success) {
+        alertBox.classList.add('alert-success');
+        alertBox.innerText = 'Login successful! Redirecting to dashboard...';
+
+        // Store JWT in localStorage 
+        localStorage.setItem('token', result.jwtToken);
+
+        // Redirect to dashboard
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 1500);
+      } else {
+        alertBox.classList.add('alert-danger');
+        alertBox.innerText = result.message || 'Login failed! Please try again.';
+      }
+    } catch (error) {
+      console.error('Error logging in:', error);
+    }
+  });
+</script>
+<%- include('partials/footer') %>

@@ -1,0 +1,76 @@
+<%- include('partials/header') %>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="border rounded p-4 shadow-lg bg-white" style="width: 400px;">
+    <h2 class="text-center mb-4">Register</h2>
+
+    <!-- Alert for displaying API messages -->
+    <div id="alert" class="alert d-none" role="alert"></div>
+
+    <form id="registerForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-3">Already have an account? <a href="/">Login here</a></p>
+  </div>
+</div>
+
+
+<script>
+  document.getElementById('registerForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('/api/v1/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const result = await response.json();
+      const alertBox = document.getElementById('alert');
+      alertBox.classList.remove('d-none');
+
+      if (response.ok) {
+        // Success: Display success message and redirect to login
+        alertBox.classList.add('alert-success');
+        alertBox.classList.remove('alert-danger');
+        alertBox.innerText = result.message || 'Registration successful! Redirecting to login...';
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 1500);
+      } else {
+        // Error: Display error message
+        alertBox.classList.add('alert-danger');
+        alertBox.classList.remove('alert-success');
+        const errorMessage = result.error?.details?.[0]?.message || result.message || 'Registration failed!';
+        alertBox.innerText = errorMessage;
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      const alertBox = document.getElementById('alert');
+      alertBox.classList.remove('d-none');
+      alertBox.classList.add('alert-danger');
+      alertBox.innerText = 'An unexpected error occurred. Please try again.';
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>
