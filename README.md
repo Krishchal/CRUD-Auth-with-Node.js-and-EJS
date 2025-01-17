@@ -123,7 +123,7 @@ CRUD-App/
 
 
 ## Contributors
-- **Krishchal Regmi** (Developer)
+- **Krishchal Regmi**
 
 ---
 For any issues or contributions, feel free to open an issue or submit a pull request.
