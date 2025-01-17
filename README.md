@@ -76,7 +76,7 @@ CRUD-App/
 ├── .env              # Environment variables (not included in version control)
 ├── index.js          # Application entry point
 ├── package.json      # Dependencies and scripts
-└── requirements.txt  # (Optional)
+
 ```
 
 ## Usage Instructions
@@ -103,6 +103,12 @@ CRUD-App/
 
 ## Screenshots 
 
+### User Registration Page
+![User Registration Page](screenshots/User_registration.png)
+
+### Login Page
+![Login Page](screenshots/Login_page.png)
+
 ### Dashboard
 ![Dashboard](screenshots/Dashboard_.png)
 
@@ -112,14 +118,9 @@ CRUD-App/
 ### User Details Popup
 ![User Details Popup](screenshots/details_popUp.png)
 
-### Login Page
-![Login Page](screenshots/Login_page.png)
-
 ### Reset Password Page
 ![Reset Password Page](screenshots/reset_password.png)
 
-### User Registration Page
-![User Registration Page](screenshots/User_registration.png)
 
 
 ## Contributors
